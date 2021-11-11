@@ -4,16 +4,15 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
 
-public class BfsDisconnected {
+public class Punto4_3 {
 
-	private static String pathName = "C:\\Users\\jphid\\eclipse-workspace\\tarea5\\data\\distancesDisconnected.txt";
+	private static String pathName = "C:\\Users\\jphid\\eclipse-workspace\\tarea5\\data\\Punto4_3.txt";
 	private int vertices;
 
 	private ArrayList[] adjTrue;
 
-	public BfsDisconnected() {
+	public Punto4_3() {
 		this.vertices = 0;
 		this.adjTrue = new ArrayList[99];
 	}
@@ -73,6 +72,7 @@ public class BfsDisconnected {
 
 	public void BFS() {
 		String why = "";
+		int groups = 0;
 		boolean[] visited = new boolean[vertices];
 		Queue<Integer> queue = new LinkedList<>();
 		why += "Bfs:";
@@ -98,6 +98,7 @@ public class BfsDisconnected {
 						}
 						if (j == vertices - 1) {
 							why += ")";
+							groups++;
 
 						}
 
@@ -110,5 +111,11 @@ public class BfsDisconnected {
 		}
 		String msg = "{" + why + "}";
 		System.out.println(msg);
+		if(groups==2) {
+			System.out.println("Se puede armar dos grupos para las visitas");
+		}
+		else {
+			System.out.println("no se pueden armar los grupos");
+		}
 	}
 }

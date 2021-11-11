@@ -89,12 +89,26 @@ public class Dijkstra {
 		// A 9 * 9 matrix is created.
 		// arr[x][y] = - 1 means, there is no any edge that connects the nodes x and y
 		// directly
-		int grph[][] = new int[][] { { -1, 3, -1, -1, -1, -1, -1, 7, -1 }, { 3, -1, 7, -1, -1, -1, -1, 10, 4 },
-				{ -1, 7, -1, 6, -1, 2, -1, -1, 1 }, { -1, -1, 6, -1, 8, 13, -1, -1, 3 },
-				{ -1, -1, -1, 8, -1, 9, -1, -1, -1 }, { -1, -1, 2, 13, 9, -1, 4, -1, 5 },
-				{ -1, -1, -1, -1, -1, 4, -1, 2, 5 }, { 7, 10, -1, -1, -1, -1, 2, -1, 6 },
-				{ -1, 4, 1, 3, -1, 5, 5, 6, -1 } };
-
+		ArrayList<String[]> rows = new ArrayList<>();
+		File f = new File("C:\\Users\\jphid\\eclipse-workspace\\tarea5\\data\\distances5.txt");
+		try{
+			BufferedReader br = new BufferedReader(new FileReader(f));
+			String[] st;
+			String sf;
+			while((sf=br.readLine())!=null) {
+				st=sf.split("\t");
+				rows.add(st);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		int grph[][] = new int[rows.size()][rows.get(1).length] ;
+		for (int i=0;i<rows.size();i++) {
+			for(int j =0;j<rows.get(0).length;j++) {
+				grph[i][j]=Integer.parseInt(rows.get(i)[j]);
+			}
+		}
 		// creating an object of the class DijkstraExample
 		Dijkstra obj = new Dijkstra();
 		obj.dijkstra(grph, 0);

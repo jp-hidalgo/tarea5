@@ -1,5 +1,8 @@
 package tarea5;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,17 +96,26 @@ public class BellmanFord {
 	}
 
 	private static Graph createGraph() {
-		int v = 7;
-		// creating a graph having 7 vertices
+		int v = 5;
+		// creating a graph 
 		Graph g = new Graph(v);
-		// adding edges to the graph
-		g.addEdge(1, 2, 4);
-		g.addEdge(1, 4, 9);
-		g.addEdge(2, 3, -1);
-		g.addEdge(3, 6, 3);
-		g.addEdge(4, 3, 2);
-		g.addEdge(4, 5, -5);
-		g.addEdge(5, 6, 0);
+		File f = new File("C:\\Users\\jphid\\eclipse-workspace\\tarea5\\data\\distances5.txt");
+		try{
+			BufferedReader br = new BufferedReader(new FileReader(f));
+			String[] st;
+			String sf;
+			int edge = 0;
+			while((sf=br.readLine())!=null) {
+				st=sf.split("\t");
+				for(int i =0;i<st.length;i++) {
+					int w = Integer.parseInt(st[i]);
+					if(w!=-1) g.addEdge(edge, i, w);
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		// returns graph
 		return g;
 	}
