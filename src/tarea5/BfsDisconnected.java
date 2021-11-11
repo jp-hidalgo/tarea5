@@ -69,7 +69,6 @@ public static void main(String[] args) throws IOException {
 
                }
                 z++;
-               System.out.println(adjTrue[2].size());
            }
            BFS();
 
@@ -100,7 +99,7 @@ public static void main(String[] args) throws IOException {
                     for (int j=0;j<vertices;j++){
                         int aff = (int)adjTrue[i].get(j);
 
-                        if (!visited[j] &&aff ==1){
+                        if (!visited[j] &&aff >=1){
                             why+=","+j;
                             visited[j]=true;
                         }
