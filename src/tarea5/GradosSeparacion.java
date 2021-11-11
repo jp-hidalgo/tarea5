@@ -4,18 +4,17 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
 
-public class BfsDisconnected {
+public class GradosSeparacion {
 
 
     private static String pathName="C:\\Users\\Josue\\Documents\\Proyectos\\tarea5\\data\\distances100.txt";
-   private  int  vertices;
+    private  int  vertices;
 
     private ArrayList[] adjTrue;
 
 
-    public BfsDisconnected() {
+    public GradosSeparacion() {
         this.vertices=0;
         this.adjTrue= new ArrayList[999];
     }
@@ -39,15 +38,15 @@ public class BfsDisconnected {
         }
         for (int i=0; i<vertices; ++i){
             adjTrue[i] = new ArrayList();
-    }
+        }
 
     }
 
 
-public static void main(String[] args) throws IOException {
-    BfsDisconnected obj=new BfsDisconnected();
-    obj.run();
-}
+    public static void main(String[] args) throws IOException {
+        GradosSeparacion obj=new GradosSeparacion();
+        obj.run();
+    }
 
 
 
@@ -59,18 +58,18 @@ public static void main(String[] args) throws IOException {
             String[] st;
             String sf;
             int z=0;
-           while ( (sf= br.readLine())!=null){
+            while ( (sf= br.readLine())!=null){
                 st=sf.split("\t");
-               for (int i=0;i<st.length;i++){
+                for (int i=0;i<st.length;i++){
 
-                   int parse= Integer.parseInt(st[i]);
-                   adjTrue[z].add(parse);
+                    int parse= Integer.parseInt(st[i]);
+                    adjTrue[z].add(parse);
 
 
-               }
+                }
                 z++;
-           }
-           BFS();
+            }
+            BFS();
 
 
         } catch (FileNotFoundException e) {
@@ -79,10 +78,12 @@ public static void main(String[] args) throws IOException {
     }
 
     public void BFS(){
-     String why="";
+        String why="";
+        boolean teoria = true;
         boolean [] visited = new boolean[vertices];
         Queue<Integer> queue = new LinkedList<>();
         why+="Bfs:";
+        int counter = 0;
         for (int i = 0; i <vertices ; i++) {
             if(!visited[i]){
                 why+="("+i;
@@ -95,17 +96,22 @@ public static void main(String[] args) throws IOException {
 
                     //mark the vertex visited
                     visited[vertex] = true;
-
+                    counter=0;
                     for (int j=0;j<vertices;j++){
                         int aff = (int)adjTrue[i].get(j);
 
                         if (!visited[j] &&aff >=1){
                             why+=","+j;
                             visited[j]=true;
+                            counter++;
+
                         }
                         if (j==vertices-1){
                             why+=")";
 
+                        }
+                        if (counter>6){
+                             teoria = false;
                         }
 
                     }
@@ -120,5 +126,7 @@ public static void main(String[] args) throws IOException {
         }
         String msg="{"+why+"}";
         System.out.println(msg);
+        System.out.println("La teoria de 6 grados de separacion es:"+teoria);
+
     }
 }
